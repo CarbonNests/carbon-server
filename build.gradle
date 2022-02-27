@@ -38,6 +38,9 @@ dependencies {
     implementation 'io.vertx:vertx-web:4.2.5'
     // https://mvnrepository.com/artifact/io.vertx/vertx-web-client
     implementation 'io.vertx:vertx-web-client:4.2.5'
+
+    // https://mvnrepository.com/artifact/org.jline/jline
+    implementation 'org.jline:jline:3.21.0'
 }
 
 shadowJar {
