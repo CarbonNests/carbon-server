@@ -41,6 +41,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.jline/jline
     implementation 'org.jline:jline:3.21.0'
+
+    // https://mvnrepository.com/artifact/net.java.dev.jna/jna
+    implementation 'net.java.dev.jna:jna:5.10.0'
 }
 
 shadowJar {

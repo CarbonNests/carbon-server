@@ -1,0 +1,6 @@
+{
+  "server_port": "10086",
+  "thread_core_pool_size": "5",
+  "thread_max_pool_size": "150",
+  "thread_keep_alive_seconds": "0"
+}
