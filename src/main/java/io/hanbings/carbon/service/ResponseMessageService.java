@@ -7,25 +7,30 @@ import com.google.gson.GsonBuilder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RepositionMessageService {
+public class ResponseMessageService {
     static Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
-    private RepositionMessageService() { }
+    private ResponseMessageService() {
+    }
 
-    public static String buildMessage(String code, String message) {
+    public static ResponseMessageService create() {
+        return new ResponseMessageService();
+    }
+
+    public String buildMessage(String code, String message) {
         Map<String, String> map = new HashMap<>();
         map.put("code", code);
         map.put("message", message);
         return gson.toJson(map);
     }
 
-    public static String buildMessage(String code, String message, Map<String, String> map) {
+    public String buildMessage(String code, String message, Map<String, String> map) {
         map.put("code", code);
         map.put("message", message);
         return gson.toJson(map);
     }
 
-    public static String buildMessage(String code, String message, String... more) {
+    public String buildMessage(String code, String message, String... more) {
         Map<String, String> map = new HashMap<>();
         map.put("code", code);
         map.put("message", message);

@@ -119,3 +119,6 @@ gradle.properties
 
 # logs directory
 logs/
+
+# test temp files
+./config.json

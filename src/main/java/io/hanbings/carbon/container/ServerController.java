@@ -1,17 +1,15 @@
 package io.hanbings.carbon.container;
 
 import io.hanbings.carbon.controller.CarbonController;
-import io.hanbings.carbon.controller.CommandController;
-import io.hanbings.carbon.controller.ConfigController;
+import io.hanbings.carbon.controller.DatabaseController;
 import io.hanbings.carbon.controller.RouterController;
 import io.hanbings.carbon.controller.TaskController;
 import lombok.Data;
 
 @Data
-public class ServerManager {
+public class ServerController {
     CarbonController carbonController;
-    ConfigController configController;
-    TaskController taskController;
+    DatabaseController databaseController;
     RouterController routerController;
-    CommandController commandController;
+    TaskController taskController;
 }

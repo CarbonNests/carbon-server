@@ -8,7 +8,7 @@
       "platform": "github_oauth2",
       "name": "Github OAuth2",
       "description": "Github OAuth2",
-      "auth_server":"https://github.com/login/oauth/authorize",
+      "auth_server": "https://github.com/login/oauth/authorize",
       "access_request_server": "https://github.com/login/oauth/access_token",
       "resource_server": "https://api.github.com/user",
       "client_id": "xxx",
