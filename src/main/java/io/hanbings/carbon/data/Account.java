@@ -30,9 +30,9 @@ public class Account {
 
     // 鉴权服务 第三方 和授权到外部
     // 可用于登录帐号的 OAuth 平台授权
-    @SerializedName("oauth_platform")
-    List<AccountOAuthPlatform> oAuthPlatforms;
+    @SerializedName("oauth2_platform")
+    List<AccountOAuth2Platform> oAuthPlatforms;
     // 授权的 OAuth 服务
-    @SerializedName("oauth_services")
-    List<AccountOAuthService> oAuthServices;
+    @SerializedName("oauth2_services")
+    List<AccountOAuth2Service> oAuthServices;
 }

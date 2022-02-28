@@ -3,6 +3,8 @@ package io.hanbings.carbon.data;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class ServerConfig {
     @SerializedName("server_port")
@@ -13,4 +15,6 @@ public class ServerConfig {
     int threadMaxPoolSize;
     @SerializedName("thread_keep_alive_seconds")
     long threadKeepAliveTime;
+    @SerializedName("oauth2_platform")
+    List<OAuth2Platform> oAuth2Platforms;
 }

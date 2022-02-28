@@ -2,5 +2,18 @@
   "server_port": "10086",
   "thread_core_pool_size": "5",
   "thread_max_pool_size": "150",
-  "thread_keep_alive_seconds": "0"
+  "thread_keep_alive_seconds": "0",
+  "oauth2_platform": [
+    {
+      "platform": "github_oauth2",
+      "name": "Github OAuth2",
+      "description": "Github OAuth2",
+      "auth_server":"https://github.com/login/oauth/authorize",
+      "access_request_server": "https://github.com/login/oauth/access_token",
+      "resource_server": "https://api.github.com/user",
+      "client_id": "xxx",
+      "client_secret": "xxx",
+      "permission": "user"
+    }
+  ]
 }

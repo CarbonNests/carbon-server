@@ -1,7 +1,7 @@
 package io.hanbings.carbon.common.content;
 
 public class Message {
-    static class Status {
+    static public class Status {
         // 200
         public static final String SUCCESS = "请求成功 (๑>؂<๑）";
         // 403
@@ -17,12 +17,12 @@ public class Message {
         public static final String SERVER_ERROR = "服务器错误~ (｡ŏ﹏ŏ)";
     }
 
-    static class AccountApi {
+    static public class AccountApi {
         public static final String NOT_LOGIN = "请先登录~ ヾ(≧▽≦*)o";
         public static final String LOGIN_SUCCESS = "登录成功~ ヾ(^▽^*)))";
         public static final String LOGIN_OUT = "退出成功~ (๑>ლ<๑)";
         // 用于登录OAuth
-        public static final String INVALID_OAUTH_TOKEN = "无效的 oauth token！(๑ò︵ò๑)";
+        public static final String INVALID_OAUTH2_TOKEN = "无效的 oauth2 token！(๑ò︵ò๑)";
     }
 }
 

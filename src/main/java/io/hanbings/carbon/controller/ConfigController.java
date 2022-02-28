@@ -1,7 +1,10 @@
 package io.hanbings.carbon.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.hanbings.carbon.CarbonServer;
+import io.hanbings.carbon.common.content.AuthPlatformType;
+import io.hanbings.carbon.common.content.AuthPlatformTypeAdapter;
 import io.hanbings.carbon.controller.interfaces.Controller;
 import io.hanbings.carbon.data.ServerConfig;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +15,9 @@ import java.util.Objects;
 @Slf4j
 public class ConfigController implements Controller {
     ServerConfig config = new ServerConfig();
-    Gson gson = new Gson();
+    GsonBuilder builder = new GsonBuilder()
+            .registerTypeAdapter(AuthPlatformType.class, new AuthPlatformTypeAdapter()).disableHtmlEscaping();
+    Gson gson = builder.create();
 
     @Override
     @SuppressWarnings("ResultOfMethodCallIgnored")

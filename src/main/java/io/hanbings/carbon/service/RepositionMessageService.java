@@ -2,12 +2,13 @@ package io.hanbings.carbon.service;
 
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class RepositionMessageService {
-    static Gson gson = new Gson();
+    static Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
     private RepositionMessageService() { }
 

@@ -11,7 +11,7 @@ import java.util.List;
  * 描述在平台注册的鉴权服务
  */
 @Data
-public class OAuthService {
+public class OAuth2Service {
     // Auth Service ID
     String sid;
     // 管理员 UID
