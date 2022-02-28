@@ -5,8 +5,8 @@ import com.google.gson.GsonBuilder;
 import io.hanbings.carbon.CarbonServer;
 import io.hanbings.carbon.common.content.AuthPlatformType;
 import io.hanbings.carbon.common.content.AuthPlatformTypeAdapter;
+import io.hanbings.carbon.container.ServerConfig;
 import io.hanbings.carbon.controller.interfaces.Controller;
-import io.hanbings.carbon.data.ServerConfig;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;

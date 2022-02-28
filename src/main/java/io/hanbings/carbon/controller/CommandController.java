@@ -53,6 +53,7 @@ public class CommandController implements Controller {
             }
         } catch (UserInterruptException ignored) {
             log.warn("User interrupt.");
+
         } catch (EndOfFileException exception) {
             log.info("Bye.");
         }
@@ -64,5 +65,6 @@ public class CommandController implements Controller {
         log.info("Stopping all controller.");
         this.controllers.forEach(Controller::stop);
         log.info("CommandController stop.");
+        System.exit(0);
     }
 }

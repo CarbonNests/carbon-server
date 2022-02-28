@@ -1,6 +1,7 @@
-package io.hanbings.carbon.data;
+package io.hanbings.carbon.container;
 
 import com.google.gson.annotations.SerializedName;
+import io.hanbings.carbon.data.OAuth2Platform;
 import lombok.Data;
 
 import java.util.List;

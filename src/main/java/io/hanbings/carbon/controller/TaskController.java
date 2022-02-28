@@ -1,7 +1,7 @@
 package io.hanbings.carbon.controller;
 
+import io.hanbings.carbon.container.ServerConfig;
 import io.hanbings.carbon.controller.interfaces.Controller;
-import io.hanbings.carbon.data.ServerConfig;
 import io.hanbings.carbon.service.ThreadService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,6 +40,7 @@ public class TaskController implements Controller {
     @Override
     public void stop() {
         log.info("TaskController stop.");
+        this.threadService.stop();
     }
 
     public void task(Thread task) {

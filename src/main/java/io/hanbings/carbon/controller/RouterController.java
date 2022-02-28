@@ -1,8 +1,10 @@
 package io.hanbings.carbon.controller;
 
+import io.hanbings.carbon.container.ServerConfig;
 import io.hanbings.carbon.controller.interfaces.Controller;
-import io.hanbings.carbon.data.ServerConfig;
 import io.hanbings.carbon.router.OAuth2BuilderRoute;
+import io.hanbings.carbon.router.OAuth2CallbackRoute;
+import io.hanbings.carbon.router.ProtectRoute;
 import io.hanbings.carbon.service.VertxService;
 import io.vertx.core.http.HttpMethod;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +30,7 @@ public class RouterController implements Controller {
         // 生成第三方 OAuth 发送至前端
         this.server.addSimpleRoute(HttpMethod.GET, "/v0/login/oauth2", new OAuth2BuilderRoute(this.config));
         // 第三方 OAuth 鉴权完成后的回调地址
-        this.server.addSimpleRoute(HttpMethod.POST, "/v0/login/oauth2/callback", new OAuth2BuilderRoute(this.config));
+        this.server.addSimpleRoute(HttpMethod.GET, "/v0/login/oauth2/callback", new OAuth2CallbackRoute(this.config));
         // 在平台注销当前登录的 token
         this.server.addSimpleRoute(HttpMethod.POST, "/v0/logout", new OAuth2BuilderRoute(this.config));
         // 平台 OAuth 鉴权相关
@@ -37,10 +39,14 @@ public class RouterController implements Controller {
         // 帐号信息
         this.server.addSimpleRoute(HttpMethod.POST, "/v0/account/change", new OAuth2BuilderRoute(this.config));
         this.server.addSimpleRoute(HttpMethod.POST, "/v0/account/get", new OAuth2BuilderRoute(this.config));
+        // 屏蔽无效请求
+        this.server.addSimpleRoute(HttpMethod.GET, "/*", new ProtectRoute());
+        this.server.addSimpleRoute(HttpMethod.POST, "/*", new ProtectRoute());
     }
 
     @Override
     public void stop() {
         log.info("RouterController stop.");
+        server.stop();
     }
 }
