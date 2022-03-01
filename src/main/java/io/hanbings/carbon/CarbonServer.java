@@ -2,6 +2,7 @@ package io.hanbings.carbon;
 
 import io.hanbings.carbon.common.content.Carbon;
 import io.hanbings.carbon.common.util.FileUtils;
+import io.hanbings.carbon.event.Event;
 import io.hanbings.carbon.event.EventBus;
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,23 +54,13 @@ public class CarbonServer {
                     while (jarEntryEnumeration.hasMoreElements()) {
                         JarEntry entry = jarEntryEnumeration.nextElement();
                         String jarEntryName = entry.getName();
-                        if (jarEntryName.contains(".class") && jarEntryName.replaceAll("/", ".").startsWith(artifact)) {
-                            classes.add(jarEntryName.substring(0, jarEntryName.lastIndexOf(".")).replace("/", "."));
+                        if (jarEntryName.contains(".class")
+                                && jarEntryName.replaceAll("/", ".").startsWith(artifact)) {
+                            classes.add(jarEntryName.substring(0,
+                                    jarEntryName.lastIndexOf(".")).replace("/", "."));
                         }
                     }
                 }
-                Thread.currentThread()
-                        .getContextClassLoader().getResources(artifact.replace(".", "/"))
-                        .asIterator().forEachRemaining(url -> {
-                            JarURLConnection connection = (JarURLConnection) url.openConnection();
-                            JarFile jarFile = connection.getJarFile();
-                            jarFile.entries().asIterator().forEachRemaining(entry -> {
-                                String jarEntryName = entry.getName();
-                                if (jarEntryName.contains(".class") && jarEntryName.replaceAll("/", ".").startsWith(artifact)) {
-                                    classes.add(jarEntryName.substring(0, jarEntryName.lastIndexOf(".")).replace("/", "."));
-                                }
-                            });
-                        });
             } catch (IOException exception) {
                 log.error("unknown io error.", exception);
             }
@@ -77,7 +68,6 @@ public class CarbonServer {
             String file = Objects.requireNonNull(CarbonServer.class.getResource("/")).getPath()
                     + artifact.replace(".", "/");
             FileUtils.getFiles(file).stream().filter(f -> f.getName().endsWith(".class")).forEach(f -> {
-                // 千万别动 已经不认识这坨垃圾了
                 classes.add(f.getPath()
                         .replace(Objects.requireNonNull(CarbonServer.class.getResource("/")).getPath()
                                 .replace("/", "\\")
@@ -87,8 +77,27 @@ public class CarbonServer {
             });
         }
 
-        classes.forEach(c -> {
-            log.info("scan class: {}", c);
+        // 反射整理类
+        // 过滤 common包 和 event 包
+        @SuppressWarnings("SpellCheckingInspection")
+        List<String> collect = classes.stream().filter(c -> !c.contains("io.hanbings.carbon.event")
+                && !c.contains("io.hanbings.carbon.common")).toList();
+
+        // 加载剩余的类
+        @SuppressWarnings("SpellCheckingInspection")
+        List<Class<?>> clazzes = new ArrayList<>();
+        try {
+            for (String className : collect) {
+                clazzes.add(Thread.currentThread().getContextClassLoader().loadClass(className));
+            }
+        } catch (ClassNotFoundException exception) {
+            log.error("unknown class not found error.", exception);
+        }
+
+        // 扫描加载的类是否包含继承 Event 的类
+        clazzes.stream().filter(c -> c.getSuperclass().equals(Event.class)).forEach(c -> {
+            // 强转 Event 注册到事件总线中
+            log.info("register event {}", c.getName());
         });
 
         //bus.callEvent(new CarbonServerBootstrapEvent(new ServiceContainer()));
