@@ -1,4 +1,4 @@
 package io.hanbings.carbon.database;
 
-public class DatabaseService {
+public class MongoDBService {
 }

@@ -1,4 +1,4 @@
 package io.hanbings.carbon.web;
 
-public class WebServerService {
+public class HttpServerService {
 }
