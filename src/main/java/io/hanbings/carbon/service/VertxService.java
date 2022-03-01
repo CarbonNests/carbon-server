@@ -5,12 +5,16 @@ import io.hanbings.carbon.service.interfaces.Service;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class VertxService implements Service {
+    @Getter
     Vertx vertx;
+    @Getter
     HttpServer server;
+    @Getter
     Router router;
     ServerConfig config;
 

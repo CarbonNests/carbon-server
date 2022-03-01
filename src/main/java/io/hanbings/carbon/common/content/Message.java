@@ -21,7 +21,7 @@ public class Message {
         public static final String NOT_LOGIN = "请先登录~ ヾ(≧▽≦*)o";
         public static final String LOGIN_SUCCESS = "登录成功~ ヾ(^▽^*)))";
         public static final String LOGIN_OUT = "退出成功~ (๑>ლ<๑)";
-        // 用于登录OAuth
+        // 用于登录 OAuth
         public static final String INVALID_OAUTH2_TOKEN = "无效的 oauth2 token！(๑ò︵ò๑)";
     }
 }

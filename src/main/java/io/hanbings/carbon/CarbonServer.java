@@ -11,7 +11,7 @@ import io.hanbings.carbon.controller.RouterController;
 import io.hanbings.carbon.controller.TaskController;
 import io.hanbings.carbon.service.MongoDBService;
 import io.hanbings.carbon.service.ResponseMessageService;
-import io.hanbings.carbon.service.ThreadService;
+import io.hanbings.carbon.service.TaskService;
 import io.hanbings.carbon.service.VertxService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,7 +32,7 @@ public class CarbonServer {
 
         // 初始化服务
         log.info("load service.");
-        services.setThreadService(ThreadService.create(config));
+        services.setTaskService(TaskService.create(config));
         services.setVertxService(VertxService.create(config));
         services.setMongoDBService(MongoDBService.create(config));
         services.setResponseMessageService(ResponseMessageService.create());
@@ -40,7 +40,7 @@ public class CarbonServer {
         // 初始化控制器
         log.info("load controller.");
         controller.setTaskController(TaskController.create(services));
-        controller.setRouterController(RouterController.create(services));
+        controller.setRouterController(RouterController.create(container));
         controller.setDatabaseController(DatabaseController.create(services));
         controller.setCarbonController(CarbonController.create(container));
 

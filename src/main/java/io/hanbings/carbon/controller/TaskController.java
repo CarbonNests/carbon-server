@@ -19,12 +19,12 @@ public class TaskController implements Controller {
     @Override
     public void start() {
         log.info("initialize thread pool.");
-        services.getThreadService().init();
+        services.getTaskService().init();
     }
 
     @Override
     public void stop() {
         log.info("shopping thread pool.");
-        services.getThreadService().close();
+        services.getTaskService().close();
     }
 }

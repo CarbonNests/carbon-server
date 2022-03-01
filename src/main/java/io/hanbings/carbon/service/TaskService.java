@@ -9,18 +9,18 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class ThreadService implements Service {
+public class TaskService implements Service {
     @Setter
     @Getter
     ThreadPoolExecutor threadPool;
     ServerConfig config;
 
-    private ThreadService(ServerConfig config) {
+    private TaskService(ServerConfig config) {
         this.config = config;
     }
 
-    public static ThreadService create(ServerConfig config) {
-        return new ThreadService(config);
+    public static TaskService create(ServerConfig config) {
+        return new TaskService(config);
     }
 
     @Override
