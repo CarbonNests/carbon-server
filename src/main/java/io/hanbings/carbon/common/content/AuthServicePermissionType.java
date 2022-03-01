@@ -5,5 +5,5 @@ public enum AuthServicePermissionType {
     READ_UID,
     READ_USERNAME,
     READ_NICKNAME,
-    READ_AVATAR
+    READ_AVATAR;
 }

@@ -11,14 +11,14 @@ import com.google.gson.JsonSerializer;
 import java.lang.reflect.Type;
 import java.util.Locale;
 
-public class AuthPlatformTypeAdapter implements JsonSerializer<AuthPlatformType>, JsonDeserializer<AuthPlatformType> {
+public class AuthServicePermissionTypeAdapter implements JsonSerializer<AccountPermissionType>, JsonDeserializer<AuthServicePermissionType> {
     @Override
-    public JsonElement serialize(AuthPlatformType src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(AccountPermissionType src, Type typeOfSrc, JsonSerializationContext context) {
         return new JsonPrimitive(src.toString().toLowerCase(Locale.ROOT));
     }
 
     @Override
-    public AuthPlatformType deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        return AuthPlatformType.valueOf(json.getAsString().toUpperCase(Locale.ROOT));
+    public AuthServicePermissionType deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        return AuthServicePermissionType.valueOf(json.getAsString().toUpperCase(Locale.ROOT));
     }
 }
