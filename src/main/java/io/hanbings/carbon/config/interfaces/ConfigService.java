@@ -1,15 +1,14 @@
 package io.hanbings.carbon.config.interfaces;
 
 import io.hanbings.carbon.container.ConfigContainer;
+import io.hanbings.carbon.interfaces.Service;
 
-public interface ConfigService {
+public interface ConfigService extends Service {
     void loadConfig();
 
     void saveConfig();
 
     void reloadConfig();
-
-    <V> V get(V key);
 
     ConfigContainer getConfigContainer();
 }

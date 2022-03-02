@@ -1,4 +1,7 @@
 package io.hanbings.carbon.task.interfaces;
 
-public interface TaskService {
+import io.hanbings.carbon.interfaces.Service;
+
+public interface TaskService extends Service {
+    void thread(Runnable runnable);
 }

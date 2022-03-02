@@ -4,7 +4,7 @@ import io.hanbings.carbon.common.content.Carbon;
 import io.hanbings.carbon.common.util.FileUtils;
 import io.hanbings.carbon.container.ServiceContainer;
 import io.hanbings.carbon.event.EventBus;
-import io.hanbings.carbon.interfaces.ServiceBootLoader;
+import io.hanbings.carbon.interfaces.ServiceBootloader;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -41,11 +41,12 @@ public class CarbonServer {
          * 通过注解扫描整个包下的类 <br>
          * 反射实现 ServiceBootLoader 的类进行事件注册 <br>
          * 触发 CarbonServerBootstrapEvent 后 沿着启动链初始化各个服务 <br>
-         * console service -> webserver service -> task service
-         * -> database service -> config service <br>
-         * 这个过程将会倒序注入依赖 即先执行  config service 的逻辑再执行 database service 的逻辑 <br>
-         * 以此类推 最后将控制权交还 bootstrap event <br>
-         * 因为 Event 通常是先于处理逻辑触发的 当然 诸如 Loaded 的事件是后于处理逻辑触发的
+         * config service -> database service -> task service
+         * -> webserver service -> console service <br>
+         * 该顺序需要人为规定 即下一个 Service 监听上一个 Service 的 Loaded 事件 <br>
+         * 这个过程将会注入依赖  最后将控制权交还 bootstrap event <br>
+         * 当然 大多数事件都应该在逻辑代码执行前触发而不是完成后 <br>
+         * 这里的情况是事件既不能阻断也不能取消 同时不允许其他 Service 干扰加载过程
          */
 
         // 收集类路径下所有的类
@@ -69,8 +70,8 @@ public class CarbonServer {
         // 引导注册服务事件与服务监听器
         try {
             for (Class<?> clazz : clazzes) {
-                if (!clazz.isInterface() && ServiceBootLoader.class.isAssignableFrom(clazz)) {
-                    ServiceBootLoader bootLoader = (ServiceBootLoader) clazz.getDeclaredConstructor().newInstance();
+                if (!clazz.isInterface() && ServiceBootloader.class.isAssignableFrom(clazz)) {
+                    ServiceBootloader bootLoader = (ServiceBootloader) clazz.getDeclaredConstructor().newInstance();
                     events.put(bootLoader, clazz.getDeclaredMethod("events", ServiceContainer.class));
                     listeners.put(bootLoader, clazz.getDeclaredMethod("listeners", ServiceContainer.class));
                     loads.put(bootLoader, clazz.getDeclaredMethod("load", ServiceContainer.class));

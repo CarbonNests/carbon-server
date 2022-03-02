@@ -1,4 +1,7 @@
 package io.hanbings.carbon.web.interfaces;
 
-public interface WebServerService {
+import io.hanbings.carbon.interfaces.Service;
+
+public interface WebServerService extends Service {
+
 }

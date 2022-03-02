@@ -1,4 +1,7 @@
 package io.hanbings.carbon.console.interfaces;
 
-public interface ConsoleService {
+import io.hanbings.carbon.interfaces.Service;
+
+public interface ConsoleService extends Service {
+    void console();
 }
