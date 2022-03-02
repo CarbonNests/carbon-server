@@ -1,6 +1,7 @@
 package io.hanbings.carbon.console;
 
 import io.hanbings.carbon.console.event.ConsoleServiceLoadedEvent;
+import io.hanbings.carbon.console.event.StopCommandEvent;
 import io.hanbings.carbon.console.event.WebServerServiceLoadedListener;
 import io.hanbings.carbon.container.ServiceContainer;
 import io.hanbings.carbon.interfaces.ServiceBootloader;
@@ -17,6 +18,7 @@ public class ConsoleServiceBootloader implements ServiceBootloader {
     public void events(ServiceContainer container) {
         // 注册事件
         container.getEventBus().registerEvent(new ConsoleServiceLoadedEvent(container));
+        container.getEventBus().registerEvent(new StopCommandEvent(container));
     }
 
     @Override

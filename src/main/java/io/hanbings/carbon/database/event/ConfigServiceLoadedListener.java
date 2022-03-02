@@ -11,7 +11,8 @@ public class ConfigServiceLoadedListener implements Listener {
     public void onConfigServiceLoaded(ConfigServiceLoadedEvent event) {
         ServiceContainer container = event.getServiceContainer();
         container.setDatabaseService(new MongoDBService(container));
-        container.getDatabaseService().start();
+        // Todo: 写完了其他模块记得打开这里 ：D
+        // container.getDatabaseService().start();
         container.getEventBus().callEvent(new DatabaseServiceLoadedEvent(container));
     }
 }

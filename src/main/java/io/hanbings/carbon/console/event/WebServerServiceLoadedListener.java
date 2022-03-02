@@ -14,4 +14,10 @@ public class WebServerServiceLoadedListener implements Listener {
         container.getConsoleService().start();
         container.getEventBus().callEvent(new ConsoleServiceLoadedEvent(container));
     }
+
+    @EventHandler
+    public void onStopCommand(StopCommandEvent event) {
+        ServiceContainer container = event.getServiceContainer();
+        container.getConsoleService().stop();
+    }
 }
