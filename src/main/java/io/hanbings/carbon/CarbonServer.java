@@ -84,7 +84,7 @@ public class CarbonServer {
         }
 
         // events() -> listeners() -> load()
-        log.info("total {} service boot loader.", events.size());
+        log.info("waiting total {} service boot loader", loads.size());
         CarbonServer.invokes(events, container);
         CarbonServer.invokes(listeners, container);
         CarbonServer.invokes(loads, container);

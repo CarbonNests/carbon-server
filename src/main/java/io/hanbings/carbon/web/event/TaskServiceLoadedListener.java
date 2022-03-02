@@ -1,5 +1,6 @@
 package io.hanbings.carbon.web.event;
 
+import io.hanbings.carbon.console.event.StopCommandEvent;
 import io.hanbings.carbon.container.ServiceContainer;
 import io.hanbings.carbon.event.interfaces.EventHandler;
 import io.hanbings.carbon.event.interfaces.Listener;
@@ -13,5 +14,11 @@ public class TaskServiceLoadedListener implements Listener {
         container.setWebServerService(new HttpServerService(container));
         container.getWebServerService().start();
         container.getEventBus().callEvent(new WebServerServiceLoadedEvent(container));
+    }
+
+    @EventHandler
+    public void onStopCommand(StopCommandEvent event) {
+        ServiceContainer container = event.getServiceContainer();
+        container.getWebServerService().stop();
     }
 }

@@ -1,5 +1,6 @@
 package io.hanbings.carbon.task.event;
 
+import io.hanbings.carbon.console.event.StopCommandEvent;
 import io.hanbings.carbon.container.ServiceContainer;
 import io.hanbings.carbon.database.event.DatabaseServiceLoadedEvent;
 import io.hanbings.carbon.event.interfaces.EventHandler;
@@ -13,5 +14,10 @@ public class DatabaseServiceLoadedListener implements Listener {
         container.setTaskService(new ThreadService(container));
         container.getTaskService().start();
         container.getEventBus().callEvent(new TaskServiceLoadedEvent(container));
+    }
+    @EventHandler
+    public void onStopCommand(StopCommandEvent event) {
+        ServiceContainer container = event.getServiceContainer();
+        container.getTaskService().stop();
     }
 }
