@@ -1,6 +1,6 @@
 package io.hanbings.carbon.data;
 
-import io.hanbings.carbon.common.content.AuthPlatformType;
+import io.hanbings.carbon.common.content.OAuth2PlatformType;
 import lombok.Data;
 
 /**
@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class AccountOAuth2Platform {
     // 平台的 类型
-    AuthPlatformType platform;
+    OAuth2PlatformType platform;
     // token
     Token token;
 }

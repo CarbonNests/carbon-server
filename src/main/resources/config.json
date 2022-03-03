@@ -9,7 +9,7 @@
   "mongodb_password": "database",
   "oauth2_platform": [
     {
-      "platform": "github_oauth2",
+      "platform": "github",
       "name": "Github OAuth2",
       "description": "Github OAuth2",
       "auth_server": "https://github.com/login/oauth/authorize",
@@ -17,6 +17,7 @@
       "resource_server": "https://api.github.com/user",
       "client_id": "github",
       "client_secret": "github",
+      "redirect_uri": "http://127.0.0.1:10086/v0/login/oauth2/callback",
       "permission": "user"
     }
   ]

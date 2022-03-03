@@ -1,7 +1,7 @@
 package io.hanbings.carbon.data;
 
 import com.google.gson.annotations.SerializedName;
-import io.hanbings.carbon.common.content.AuthPlatformType;
+import io.hanbings.carbon.common.content.OAuth2PlatformType;
 import lombok.Data;
 
 /**
@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class OAuth2Platform {
     // 平台 类型
-    AuthPlatformType platform;
+    OAuth2PlatformType platform;
     // 平台名称
     String name;
     // 描述
@@ -30,6 +30,8 @@ public class OAuth2Platform {
     // OAuth Client Secret
     @SerializedName("client_secret")
     String clientSecret;
+    @SerializedName("redirect_uri")
+    String redirectUri;
     // OAuth Request Permission
     String permission;
 }
