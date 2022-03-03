@@ -24,7 +24,7 @@ public class VertxService implements WebServerService {
 
     @Override
     public void start() {
-// 初始化 VertX
+        // 初始化 VertX
         this.vertx = Vertx.vertx();
         // 创建 VertX 服务器
         this.server = vertx.createHttpServer();
@@ -44,6 +44,7 @@ public class VertxService implements WebServerService {
     @Override
     public void stop() {
         server.close();
+        log.info("web server service stopped.");
     }
 
 
