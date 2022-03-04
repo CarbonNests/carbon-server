@@ -3,6 +3,7 @@ package io.hanbings.carbon.data;
 import com.google.gson.annotations.SerializedName;
 import io.hanbings.carbon.common.content.AuthServicePermissionType;
 import io.hanbings.carbon.common.content.AuthServiceStatusType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * 描述在平台注册的鉴权服务
  */
 @Data
+@AllArgsConstructor
 public class OAuth2Service {
     // Auth Service ID
     String sid;

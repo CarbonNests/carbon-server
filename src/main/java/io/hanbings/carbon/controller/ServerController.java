@@ -1,12 +1,14 @@
 package io.hanbings.carbon.controller;
 
 import io.hanbings.carbon.config.Config;
+import io.hanbings.carbon.interfaces.CacheService;
 import io.hanbings.carbon.interfaces.ConsoleService;
 import io.hanbings.carbon.interfaces.Controller;
 import io.hanbings.carbon.interfaces.DatabaseService;
 import io.hanbings.carbon.interfaces.TaskService;
 import io.hanbings.carbon.interfaces.WebServerService;
 import io.hanbings.carbon.service.JLineService;
+import io.hanbings.carbon.service.MapCacheService;
 import io.hanbings.carbon.service.MongodbService;
 import io.hanbings.carbon.service.ThreadService;
 import io.hanbings.carbon.service.VertxService;
@@ -18,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ServerController implements Controller {
     final Config config;
     TaskService taskService;
+    CacheService cacheService;
     ConsoleService consoleService;
     DatabaseService databaseService;
     WebServerService webServerService;
@@ -27,6 +30,7 @@ public class ServerController implements Controller {
         taskService = new ThreadService(config.getThreadCorePoolSize()
                 , config.getThreadMaxPoolSize()
                 , config.getThreadKeepAliveTime());
+        cacheService = new MapCacheService();
         databaseService = new MongodbService(config.getMongodbUrl()
                 , config.getMongodbUser()
                 , config.getMongodbPassword());
@@ -35,8 +39,9 @@ public class ServerController implements Controller {
 
         // 创建控制器
         new TaskController(taskService).serve();
+        new CacheController(cacheService, taskService).serve();
         new DatabaseController(databaseService).serve();
-        new RouterController(taskService, consoleService, databaseService, webServerService).serve();
-        new ConsoleController(taskService, consoleService, databaseService, webServerService).serve();
+        new RouterController(taskService, consoleService, databaseService, webServerService, cacheService).serve();
+        new ConsoleController(taskService, consoleService, databaseService, webServerService, cacheService).serve();
     }
 }

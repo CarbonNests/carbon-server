@@ -1,5 +1,6 @@
 package io.hanbings.carbon.data;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -8,9 +9,10 @@ import lombok.Data;
  * 包含 token 和 token 的过期时间
  */
 @Data
+@AllArgsConstructor
 public class Token {
     // token
     String token;
     // token 过期时间
-    String expire;
+    long expire;
 }

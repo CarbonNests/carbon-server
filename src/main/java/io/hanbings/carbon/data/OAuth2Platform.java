@@ -2,12 +2,14 @@ package io.hanbings.carbon.data;
 
 import com.google.gson.annotations.SerializedName;
 import io.hanbings.carbon.common.content.OAuth2PlatformType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
  * 描述可以用来登录平台的第三方鉴权服务
  */
 @Data
+@AllArgsConstructor
 public class OAuth2Platform {
     // 平台 类型
     OAuth2PlatformType platform;

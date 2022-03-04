@@ -3,11 +3,13 @@ package io.hanbings.carbon.data;
 import com.google.gson.annotations.SerializedName;
 import io.hanbings.carbon.common.content.AccountPermissionType;
 import io.hanbings.carbon.common.content.AccountStatusType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@AllArgsConstructor
 public class Account {
     // 用户唯一 ID
     String uid;

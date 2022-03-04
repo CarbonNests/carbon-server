@@ -1,12 +1,17 @@
 package io.hanbings.carbon.service;
 
+import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import io.hanbings.carbon.common.util.GsonUtils;
+import io.hanbings.carbon.data.Account;
+import io.hanbings.carbon.data.OAuth2Service;
 import io.hanbings.carbon.interfaces.DatabaseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.Document;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -21,26 +26,9 @@ public class MongodbService implements DatabaseService {
     ServerAddress serverAddress;
     MongoCredential credential;
     MongoClient mongoClient;
+    String database;
+    Gson gson = GsonUtils.getGson();
 
-    @Override
-    public void create(String database, Object data) {
-
-    }
-
-    @Override
-    public void read(String database, Object data) {
-
-    }
-
-    @Override
-    public void update(String database, Object data) {
-
-    }
-
-    @Override
-    public void delete(String database, Object data) {
-
-    }
 
     @Override
     public void start() {
@@ -75,7 +63,7 @@ public class MongodbService implements DatabaseService {
                             : Objects.requireNonNull(resource.getUsername()),
                     resource.getDatabase() != null
                             ? resource.getDatabase()
-                            : "test",
+                            : "carbon",
                     mongodbPassword != null
                             ? mongodbPassword.toCharArray()
                             : Objects.requireNonNull(resource.getPassword())
@@ -85,6 +73,8 @@ public class MongodbService implements DatabaseService {
                     credential,
                     resource.getOptions()
             );
+            // 保存数据库位置
+            database = resource.getDatabase();
         }
 
         log.info("database service started.");
@@ -92,6 +82,69 @@ public class MongodbService implements DatabaseService {
 
     @Override
     public void stop() {
+        mongoClient.close();
         log.info("database service stopped.");
+    }
+
+    @Override
+    public void addAccount(Account account) {
+        String json = gson.toJson(account);
+        Document document = Document.parse(json);
+        mongoClient.getDatabase(database).getCollection("account").insertOne(document);
+    }
+
+    @Override
+    public Account getAccount(String uid) {
+        Document document = mongoClient.getDatabase(database).getCollection("account")
+                .find(new Document("uid", uid)).first();
+        return document != null ? gson.fromJson(document.toJson(), Account.class) : null;
+    }
+
+    @Override
+    public void updateAccount(Account account) {
+        String json = gson.toJson(account);
+        Document document = Document.parse(json);
+        mongoClient.getDatabase(database).getCollection("account")
+                .replaceOne(new Document("uid", account.getUid()), document);
+    }
+
+    @Override
+    public void deleteAccount(String uid) {
+        mongoClient.getDatabase(database).getCollection("account")
+                .deleteOne(new Document("uid", uid));
+    }
+
+    @Override
+    public boolean hasAccount(String email) {
+        return mongoClient.getDatabase(database).getCollection("account")
+                .find(new Document("email", email)).first() != null;
+    }
+
+    @Override
+    public void addOAuth2Service(OAuth2Service oAuth2Service) {
+        String json = gson.toJson(oAuth2Service);
+        Document document = Document.parse(json);
+        mongoClient.getDatabase(database).getCollection("oauth2_service").insertOne(document);
+    }
+
+    @Override
+    public OAuth2Service getOAuth2Service(String sid) {
+        Document document = mongoClient.getDatabase(database).getCollection("oauth2_service")
+                .find(new Document("sid", sid)).first();
+        return document != null ? gson.fromJson(document.toJson(), OAuth2Service.class) : null;
+    }
+
+    @Override
+    public void updateOAuth2Service(OAuth2Service oAuth2Service) {
+        String json = gson.toJson(oAuth2Service);
+        Document document = Document.parse(json);
+        mongoClient.getDatabase(database).getCollection("oauth2_service")
+                .replaceOne(new Document("sid", oAuth2Service.getSid()), document);
+    }
+
+    @Override
+    public void deleteOAuth2Service(String sid) {
+        mongoClient.getDatabase(database).getCollection("oauth2_service")
+                .deleteOne(new Document("sid", sid));
     }
 }

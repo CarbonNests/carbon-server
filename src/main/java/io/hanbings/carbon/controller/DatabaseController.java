@@ -8,6 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 public record DatabaseController(DatabaseService databaseService) implements Controller {
     @Override
     public void serve() {
-        // databaseService.start();
+        databaseService.start();
     }
 }
