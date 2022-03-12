@@ -1,4 +1,4 @@
-package io.hanbings.carbon.config;
+package io.hanbings.carbon.common.config;
 
 import com.google.gson.annotations.SerializedName;
 import io.hanbings.carbon.data.OAuth2Platform;

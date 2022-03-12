@@ -1,7 +1,7 @@
 package io.hanbings.carbon;
 
 import io.hanbings.carbon.common.content.Carbon;
-import io.hanbings.carbon.config.ConfiguringStartup;
+import io.hanbings.carbon.common.config.ConfiguringStartup;
 import io.hanbings.carbon.controller.ServerController;
 import lombok.extern.slf4j.Slf4j;
 

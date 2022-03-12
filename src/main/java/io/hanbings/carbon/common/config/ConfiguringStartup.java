@@ -1,4 +1,4 @@
-package io.hanbings.carbon.config;
+package io.hanbings.carbon.common.config;
 
 import com.google.gson.Gson;
 import io.hanbings.carbon.CarbonServer;

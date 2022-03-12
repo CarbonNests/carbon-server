@@ -1,7 +1,7 @@
 package io.hanbings.carbon.controller;
 
 import io.hanbings.carbon.common.content.OAuth2PlatformType;
-import io.hanbings.carbon.config.ConfiguringStartup;
+import io.hanbings.carbon.common.config.ConfiguringStartup;
 import io.hanbings.carbon.data.OAuth2Platform;
 import io.hanbings.carbon.interfaces.CacheService;
 import io.hanbings.carbon.interfaces.ConsoleService;
@@ -9,6 +9,7 @@ import io.hanbings.carbon.interfaces.Controller;
 import io.hanbings.carbon.interfaces.DatabaseService;
 import io.hanbings.carbon.interfaces.TaskService;
 import io.hanbings.carbon.interfaces.WebServerService;
+import io.hanbings.carbon.router.HaveFunRandomHandler;
 import io.hanbings.carbon.router.OAuth2PlatformCallbackHandler;
 import io.hanbings.carbon.router.OAuth2PlatformHandler;
 import io.hanbings.carbon.router.OAuth2ServiceCallbackHandler;
@@ -40,11 +41,14 @@ public record RouterController(TaskService taskService,
         webServerService.router(HttpMethod.GET,
                 "/v0/login/oauth2/:platform/authorize", new OAuth2PlatformHandler(auths, cacheService));
         webServerService.router(HttpMethod.GET,
-                "/v0/login/oauth2/:platform/token", new OAuth2PlatformCallbackHandler(cacheService));
+                "/v0/login/oauth2/:platform/callback", new OAuth2PlatformCallbackHandler(cacheService));
         // 平台提供的 OAuth2 服务
         webServerService.router(HttpMethod.GET,
                 "/v0/oauth2/authorize", new OAuth2ServiceHandler());
         webServerService.router(HttpMethod.GET,
                 "/v0/oauth2/token", new OAuth2ServiceCallbackHandler());
+        // 接口
+        webServerService.router(HttpMethod.GET,
+                "/v0/have/fun/random", new HaveFunRandomHandler());
     }
 }

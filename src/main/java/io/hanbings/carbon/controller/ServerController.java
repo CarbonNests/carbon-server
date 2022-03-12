@@ -1,6 +1,6 @@
 package io.hanbings.carbon.controller;
 
-import io.hanbings.carbon.config.Config;
+import io.hanbings.carbon.common.config.Config;
 import io.hanbings.carbon.interfaces.CacheService;
 import io.hanbings.carbon.interfaces.ConsoleService;
 import io.hanbings.carbon.interfaces.Controller;
